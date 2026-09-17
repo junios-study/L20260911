@@ -9,6 +9,7 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "MyStaticMeshComponent.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -31,10 +32,10 @@ AMyPawn::AMyPawn()
 	}
 
 
-	Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Left"));
+	Left = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Left"));
 	Left->SetupAttachment(Body);
 
-	Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Right"));
+	Right = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Right"));
 	Right->SetupAttachment(Body);
 
 

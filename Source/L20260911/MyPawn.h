@@ -10,6 +10,7 @@
 
 class UBoxComponent;
 class UStaticMeshComponent;
+class UMyStaticMeshComponent;
 class UArrowComponent;
 class UCameraComponent;
 class USpringArmComponent;
@@ -45,10 +46,10 @@ public:
 	TObjectPtr<UStaticMeshComponent> Body;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UStaticMeshComponent> Left;
+	TObjectPtr<UMyStaticMeshComponent> Left;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	TObjectPtr<UStaticMeshComponent> Right;
+	TObjectPtr<UMyStaticMeshComponent> Right;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UArrowComponent> Arrow;
