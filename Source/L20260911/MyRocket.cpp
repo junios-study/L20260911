@@ -5,6 +5,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/BoxComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMyRocket::AMyRocket()
@@ -39,6 +41,7 @@ void AMyRocket::BeginPlay()
 	Super::BeginPlay();
 
 	OnActorBeginOverlap.AddDynamic(this, &AMyRocket::ProcessBeginOverlap);
+	//OnActorBeginOverlap.RemoveDynamic(this, &AMyRocket::ProcessBeginOverlap);
 	
 	SetLifeSpan(3.0f);
 }
@@ -52,6 +55,15 @@ void AMyRocket::Tick(float DeltaTime)
 
 void AMyRocket::ProcessBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Overlap"));
+	if (!OtherActor->ActorHasTag(TEXT("Player")))
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ExplotionTemplate, GetActorLocation());
+
+		UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
+			ExplotionSound, GetActorLocation());
+
+		UE_LOG(LogTemp, Warning, TEXT("Overlap"));
+		Destroy();
+	}
 }
 

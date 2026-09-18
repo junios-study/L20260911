@@ -68,6 +68,8 @@ AMyPawn::AMyPawn()
 
 	Movement->MaxSpeed = 0.0f;
 
+	Tags.Add(TEXT("Player"));
+
 }
 
 // Called when the game starts or when spawned
