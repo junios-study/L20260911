@@ -49,4 +49,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	TObjectPtr<USoundBase> ExplotionSound;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void CallCPPToExecuteBP();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void CallCPPToExecuteBPButDefaultCPP();
+	void CallCPPToExecuteBPButDefaultCPP_Implementation();
+
+
 };

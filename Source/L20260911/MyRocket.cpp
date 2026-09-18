@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "MyRocket.h"
@@ -68,9 +68,21 @@ void AMyRocket::ProcessBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 			this,
 			nullptr
 		);
+		
+		//CPP에서 점수 계산
+		//점수 계산 기획자가 매번 바꿈.
+		//CPP에서 호출 하지만 실행은 블루프린트에서 실행 되는 함수
+		//CallCPPToExecuteBP();
+		CallCPPToExecuteBPButDefaultCPP();
 
 		UE_LOG(LogTemp, Warning, TEXT("Overlap"));
 		Destroy();
 	}
+}
+
+
+void AMyRocket::CallCPPToExecuteBPButDefaultCPP_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("이건 기본 CPP 동작"));
 }
 
