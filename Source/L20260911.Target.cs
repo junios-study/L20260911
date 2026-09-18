@@ -8,8 +8,9 @@ public class L20260911Target : TargetRules
 	public L20260911Target(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V7;
+        DefaultBuildSettings = BuildSettingsVersion.Latest;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 
-		ExtraModuleNames.AddRange( new string[] { "L20260911" } );
+        ExtraModuleNames.AddRange( new string[] { "L20260911" } );
 	}
 }

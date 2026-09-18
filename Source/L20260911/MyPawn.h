@@ -66,4 +66,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UFloatingPawnMovement> Movement;
+
+
+
+	//C++
+	UFUNCTION(BlueprintCallable)
+	void Fire();
+
 };

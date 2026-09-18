@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "MyPawn.h"
@@ -11,6 +11,7 @@
 #include "Camera/CameraComponent.h"
 #include "MyStaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyRocket.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -25,7 +26,7 @@ AMyPawn::AMyPawn()
 	Body->SetupAttachment(Box);
 
 
-	//Ư���� ��� �ƴ� ���� �����.
+	//특별한 경우 아님 안함 절대로.
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Body(TEXT("/Script/Engine.StaticMesh'/Game/P38/Meshes/SM_P38_Body.SM_P38_Body'"));
 	if (SM_Body.Succeeded())
 	{
@@ -65,13 +66,14 @@ AMyPawn::AMyPawn()
 	SpringArm->bEnableCameraLag = true;
 	SpringArm->bEnableCameraRotationLag = true;
 
+	Movement->MaxSpeed = 0.0f;
+
 }
 
 // Called when the game starts or when spawned
 void AMyPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -109,3 +111,11 @@ void AMyPawn::Roll(float Value)
 	);
 }
 
+void AMyPawn::Fire()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("발사"));
+	//문법적으로 CDO 가르키는 포인터
+	//의미적으론 그냥 클래스 이름(C++ 문법이 없음)
+	GetWorld()->SpawnActor<AActor>(AMyRocket::StaticClass(), 
+		Arrow->K2_GetComponentToWorld());
+}
