@@ -13,7 +13,8 @@ public class L20260911 : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"Niagara"
+			"Niagara",
+			"EnhancedInput"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

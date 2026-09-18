@@ -17,6 +17,10 @@ class USpringArmComponent;
 class UFloatingPawnMovement;
 class AMyRocket;
 
+class UInputAction;
+
+struct FInputActionValue;
+
 
 UCLASS()
 class L20260911_API AMyPawn : public APawn
@@ -76,5 +80,18 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	TSubclassOf<AMyRocket> RocketTemplate;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	TSoftObjectPtr<UInputAction> IA_Fire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	TSoftObjectPtr<UInputAction> IA_PitchRoll;
+
+	UFUNCTION()
+	void Press_IA_Fire(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void Press_IA_PitchRoll(const FInputActionValue& Value);
 
 };

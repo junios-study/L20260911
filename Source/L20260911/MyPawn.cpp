@@ -12,6 +12,8 @@
 #include "MyStaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyRocket.h"
+#include "EnhancedInputComponent.h"
+#include "InputActionValue.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -97,9 +99,20 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis(TEXT("Pitch"), this, &AMyPawn::Pitch);
+	UEnhancedInputComponent* UIC = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis(TEXT("Roll"), this, &AMyPawn::Roll);
+	if (UIC)
+	{
+		UIC->BindAction(IA_Fire.LoadSynchronous(), ETriggerEvent::Triggered,
+			this, &AMyPawn::Press_IA_Fire);
+		UIC->BindAction(IA_PitchRoll.LoadSynchronous(), ETriggerEvent::Triggered,
+			this, &AMyPawn::Press_IA_PitchRoll);
+	}
+	else
+	{
+		PlayerInputComponent->BindAxis(TEXT("Pitch"), this, &AMyPawn::Pitch);
+		PlayerInputComponent->BindAxis(TEXT("Roll"), this, &AMyPawn::Roll);
+	}
 
 }
 
@@ -126,4 +139,24 @@ void AMyPawn::Fire()
 	//의미적으론 그냥 클래스 이름(C++ 문법이 없음)
 	GetWorld()->SpawnActor<AActor>(RocketTemplate,
 		Arrow->K2_GetComponentToWorld());
+}
+
+void AMyPawn::Press_IA_Fire(const FInputActionValue& Value)
+{
+	bool BoolValue = Value.Get<bool>();
+
+	UE_LOG(LogTemp, Warning, TEXT("Press_IA_Fire"));
+	GetWorld()->SpawnActor<AActor>(RocketTemplate,
+		Arrow->K2_GetComponentToWorld());
+}
+
+void AMyPawn::Press_IA_PitchRoll(const FInputActionValue& Value)
+{
+	FVector2D WantedRotation = Value.Get<FVector2D>();
+
+	AddActorLocalRotation(
+		FRotator(FMath::Clamp(WantedRotation.X, -1, 1) * 60.0f * UGameplayStatics::GetWorldDeltaSeconds(GetWorld()),
+		0,
+		FMath::Clamp(WantedRotation.Y, -1, 1) * 60.0f * UGameplayStatics::GetWorldDeltaSeconds(GetWorld()))
+	);
 }
