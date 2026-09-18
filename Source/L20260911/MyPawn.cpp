@@ -118,6 +118,6 @@ void AMyPawn::Fire()
 	//UE_LOG(LogTemp, Warning, TEXT("발사"));
 	//문법적으로 CDO 가르키는 포인터
 	//의미적으론 그냥 클래스 이름(C++ 문법이 없음)
-	GetWorld()->SpawnActor<AActor>(AMyRocket::StaticClass(), 
+	GetWorld()->SpawnActor<AActor>(RocketTemplate,
 		Arrow->K2_GetComponentToWorld());
 }

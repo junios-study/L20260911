@@ -15,6 +15,7 @@ class UArrowComponent;
 class UCameraComponent;
 class USpringArmComponent;
 class UFloatingPawnMovement;
+class AMyRocket;
 
 
 UCLASS()
@@ -72,5 +73,8 @@ public:
 	//C++
 	UFUNCTION(BlueprintCallable)
 	void Fire();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	TSubclassOf<AMyRocket> RocketTemplate;
 
 };

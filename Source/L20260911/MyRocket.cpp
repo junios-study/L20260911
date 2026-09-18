@@ -62,6 +62,13 @@ void AMyRocket::ProcessBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 		UGameplayStatics::SpawnSoundAtLocation(GetWorld(),
 			ExplotionSound, GetActorLocation());
 
+		UGameplayStatics::ApplyDamage(OtherActor,
+			10.0f,
+			UGameplayStatics::GetPlayerController(GetWorld(), 0),
+			this,
+			nullptr
+		);
+
 		UE_LOG(LogTemp, Warning, TEXT("Overlap"));
 		Destroy();
 	}
