@@ -70,6 +70,12 @@ AMyPawn::AMyPawn()
 
 	Tags.Add(TEXT("Player"));
 
+	static ConstructorHelpers::FClassFinder<AMyRocket> BP_Rocket(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/CPP/BP_MyRocket.BP_MyRocket_C'"));
+	if (BP_Rocket.Succeeded())
+	{
+		RocketTemplate = BP_Rocket.Class;
+	}
+
 }
 
 // Called when the game starts or when spawned
